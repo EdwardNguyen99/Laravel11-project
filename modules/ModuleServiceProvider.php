@@ -14,6 +14,9 @@ class ModuleServiceProvider extends ServiceProvider
     public function boot()
     {
         $modules = $this->getModules();
+        foreach ($modules as $module) {
+            $this->registerModule($module);
+        }
     }
 
     private function getModules()
@@ -25,21 +28,21 @@ class ModuleServiceProvider extends ServiceProvider
     // register modules
     private function registerModule($module)
     {
-        $modulePath = __DIR__ . "/{module}";
+        $modulePath = __DIR__ . "/{$module}";
         /** Init Routes **/
-        if (File::exists($modulePath . '/routes.php')) {
-            $this->loadRoutesFrom($modulePath . '/routes.php');
+        if (File::exists($modulePath . '/routes/routes.php')) {
+            $this->loadRoutesFrom($modulePath . '/routes/routes.php');
         }
         
         /** Init Migrations **/
-        if (File::exists($modulePath . '/migration')) {
+        if (File::exists($modulePath . '/migrations')) {
             $this->loadMigrationsFrom($modulePath . '/migrations');
         }
 
         /** Init Languages **/
-        if (File::exists($modulePath . '/lang')) {
-            $this->loadTranslationsFrom($modulePath . '/lang', '{module}');
-            $this->loadJsonTranslationsFrom($modulePath . '/lang');
+        if (File::exists($modulePath . '/resources/lang')) {
+            $this->loadTranslationsFrom($modulePath . '/resources/lang', strtolower($module));
+            $this->loadJsonTranslationsFrom($modulePath . '/resources/lang');
         }
 
         /** Init Views **/
