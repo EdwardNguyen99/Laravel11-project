@@ -1,4 +1,5 @@
 <?php
+
 namespace Modules;
 
 use FastRoute\Route;
@@ -33,7 +34,7 @@ class ModuleServiceProvider extends ServiceProvider
         if (File::exists($modulePath . '/routes/routes.php')) {
             $this->loadRoutesFrom($modulePath . '/routes/routes.php');
         }
-        
+
         /** Init Migrations **/
         if (File::exists($modulePath . '/migrations')) {
             $this->loadMigrationsFrom($modulePath . '/migrations');
@@ -46,13 +47,13 @@ class ModuleServiceProvider extends ServiceProvider
         }
 
         /** Init Views **/
-        if (File::exists($modulePath. '/resources/views')) {
-            $this->loadViewsFrom($modulePath.'/resources/views', strtolower($module));
+        if (File::exists($modulePath . '/resources/views')) {
+            $this->loadViewsFrom($modulePath . '/resources/views', strtolower($module));
         }
 
         /** Init Helpers **/
-        if (File::exists($modulePath. '/helpers')) {
-            $helperList = File::allFiles($modulePath. '/helpers');
+        if (File::exists($modulePath . '/helpers')) {
+            $helperList = File::allFiles($modulePath . '/helpers');
             if (!empty($helperList)) {
                 foreach ($helperList as $helper) {
                     $file = $helper->getPathName();

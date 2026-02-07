@@ -9,6 +9,5 @@ class AdminRepository extends BaseRepository implements AdminRepositoryInterface
 {
     public function getModel()
     {
-   
     }
 }
