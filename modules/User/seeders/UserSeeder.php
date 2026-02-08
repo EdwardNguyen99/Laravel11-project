@@ -2,9 +2,9 @@
 
 namespace Modules\User\Seeders;
 
-use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Modules\User\src\Models\User as ModelsUser;
 
 class UserSeeder extends Seeder
 {
@@ -14,14 +14,14 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // Create admin user
-        User::create([
+        ModelsUser::create([
             'name' => 'Admin',
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
         ]);
 
         // Create test users
-        User::create([
+        ModelsUser::create([
             'name' => 'Test User',
             'email' => 'user@example.com',
             'password' => Hash::make('password'),
