@@ -5,6 +5,7 @@ namespace Modules;
 use FastRoute\Route;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
+use Modules\User\src\Repositories\UserRepository;
 
 class ModuleServiceProvider extends ServiceProvider
 {
@@ -18,6 +19,21 @@ class ModuleServiceProvider extends ServiceProvider
         foreach ($modules as $module) {
             $this->registerModule($module);
         }
+    }
+
+    public function register()
+    {
+        // Configs
+        $modules = $this->getModules();
+        foreach ($modules as $module) {
+            $this->registerConfig($module);
+        }
+
+        $this->registerMiddleware();
+        $this->commands($this->commands);
+        $this->app->singleton(
+            UserRepository::class,
+        );
     }
 
     private function getModules()
