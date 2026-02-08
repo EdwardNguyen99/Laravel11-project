@@ -7,8 +7,8 @@
 </li>
 
 <!-- Users Management -->
-<li class="nav-item {{ request()->is('admin/users*') ? 'menu-open' : '' }}">
-    <a href="#" class="nav-link {{ request()->is('admin/users*') ? 'active' : '' }}">
+<li class="nav-item {{ request()->routeIs('admin.users.*') ? 'menu-open' : '' }}">
+    <a href="#" class="nav-link {{ request()->routeIs('admin.users.*') ? 'active' : '' }}">
         <i class="nav-icon bi bi-people-fill"></i>
         <p>
             Users
@@ -17,13 +17,13 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->routeIs('admin.users.index') ? 'active' : '' }}">
                 <i class="nav-icon bi bi-circle"></i>
                 <p>All Users</p>
             </a>
         </li>
         <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('admin.users.create') }}" class="nav-link {{ request()->routeIs('admin.users.create') ? 'active' : '' }}">
                 <i class="nav-icon bi bi-circle"></i>
                 <p>Add New</p>
             </a>
