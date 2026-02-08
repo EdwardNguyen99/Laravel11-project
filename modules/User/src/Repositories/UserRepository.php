@@ -34,4 +34,14 @@ class UserRepository extends BaseRepository implements UserRepositoryInterface
 
         return Hash::check($password, $user->password);
     }
+
+    public function getNewUsersToday()
+    {
+        return $this->model->whereDate('created_at', today())->count();
+    }
+
+    public function getRecentUsers($limit = 10)
+    {
+        return $this->model->orderBy('created_at', 'desc')->limit($limit)->get();
+    }
 }
