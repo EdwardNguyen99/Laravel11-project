@@ -10,7 +10,7 @@ class DashboardController extends Controller
     protected $userRepository;
 
     public function __construct(UserRepository $userRepository)
-{
+    {
         $this->userRepository = $userRepository;
     }
 
