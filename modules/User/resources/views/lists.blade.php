@@ -31,6 +31,7 @@
                         <th style="width: 50px">ID</th>
                         <th>Name</th>
                         <th>Email</th>
+                        <th>Status</th>
                         <th style="width: 180px">Actions</th>
                     </tr>
                 </thead>
@@ -40,6 +41,13 @@
                             <td>{{ $user->id }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>
+                                @if ($user->status == 1)
+                                    <span class="badge bg-success">Active</span>
+                                @else
+                                    <span class="badge bg-danger">Inactive</span>
+                                @endif
+                            </td>
                             <td>
                                 <a href="{{ route('admin.users.edit', $user->id) }}" class="btn btn-warning btn-sm">
                                     <i class="bi bi-pencil"></i> Edit

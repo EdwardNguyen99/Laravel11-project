@@ -18,8 +18,17 @@ class UpdateUserRequest extends FormRequest
 
         return [
             'name' => ['sometimes', 'required', 'string', 'max:255'],
-            'email' => ['sometimes', 'required', 'string', 'email', 'max:255', Rule::unique('users', 'email')->ignore($userId)],
-            'password' => ['sometimes', 'required', 'string', 'min:8', 'confirmed'],
+            'email' => [
+                'sometimes',
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique('users', 'email')->ignore($userId),
+            ],
+            'password' => ['nullable', 'string', 'min:8', 'confirmed'],
+            'group_id' => ['required', 'integer', 'in:0,1'],
+            'status' => ['required', 'integer', 'in:0,1'],
         ];
     }
 
@@ -28,7 +37,8 @@ class UpdateUserRequest extends FormRequest
         return [
             'name.required' => 'Name is required',
             'email.required' => 'Email is required',
-            'password.required' => 'Password is required',
+            'group_id.required' => 'Group is required',
+            'status.required' => 'Status is required',
         ];
     }
 
@@ -38,6 +48,8 @@ class UpdateUserRequest extends FormRequest
             'name' => 'Name',
             'email' => 'Email',
             'password' => 'Password',
+            'group_id' => 'Group',
+            'status' => 'Status',
         ];
     }
 }

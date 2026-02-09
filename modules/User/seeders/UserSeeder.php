@@ -18,6 +18,7 @@ class UserSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@example.com',
             'password' => Hash::make('password'),
+            'group_id' => 1,
         ]);
 
         // Create test users
@@ -25,6 +26,7 @@ class UserSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'user@example.com',
             'password' => Hash::make('password'),
+            'group_id' => 0,
         ]);
     }
 }

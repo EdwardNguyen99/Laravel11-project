@@ -44,6 +44,29 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="group_id" class="form-label">Group</label>
+                    <select name="group_id" id="group_id" class="form-control @error('group_id') is-invalid @enderror">
+                        <option value="">Select Group</option>
+                        <option value="0" {{ old('group_id', $user->group_id) == 0 ? 'selected' : '' }}>User</option>
+                        <option value="1" {{ old('group_id', $user->group_id) == 1 ? 'selected' : '' }}>Admin</option>
+                    </select>
+                    @error('group_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status</label>
+                    <select name="status" id="status" class="form-control @error('status') is-invalid @enderror">
+                        <option value="1" {{ old('status', $user->status) == 1 ? 'selected' : '' }}>Active</option>
+                        <option value="0" {{ old('status', $user->status) == 0 ? 'selected' : '' }}>Inactive</option>
+                    </select>
+                    @error('status')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror">
                     <small class="text-muted">Leave blank to keep current password</small>

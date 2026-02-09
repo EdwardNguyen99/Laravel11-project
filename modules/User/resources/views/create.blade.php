@@ -35,6 +35,18 @@
                 </div>
 
                 <div class="mb-3">
+                    <label for="group_id" class="form-label">Group</label>
+                    <select name="group_id" id="group_id" class="form-control @error('group_id') is-invalid @enderror" required>
+                        <option value="">Select Group</option>
+                        <option value="0">User</option>
+                        <option value="1">Admin</option>
+                    </select>
+                    @error('group_id')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
                     <input type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}" required>
                     @error('email')
