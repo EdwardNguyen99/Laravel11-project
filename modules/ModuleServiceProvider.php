@@ -46,9 +46,16 @@ class ModuleServiceProvider extends ServiceProvider
     private function registerModule($module)
     {
         $modulePath = __DIR__ . "/{$module}";
-        /** Init Routes **/
+        /** Init Web Routes **/
         if (File::exists($modulePath . '/routes/routes.php')) {
             $this->loadRoutesFrom($modulePath . '/routes/routes.php');
+        }
+
+        /** Init API Routes **/
+        if (File::exists($modulePath . '/routes/api.php')) {
+            $this->app['router']->prefix('api')
+                ->middleware('api')
+                ->group($modulePath . '/routes/api.php');
         }
 
         /** Init Migrations **/
