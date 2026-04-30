@@ -46,22 +46,18 @@
                         <img src="{{ asset('vendor/adminlte/img/user2-160x160.jpg') }}" class="rounded-circle shadow" alt="User Image" />
                         <p>
                             {{ Auth::user()->name ?? 'Admin' }}
-                            <small>Administrator</small>
+                            <small>{{ Auth::user()->group_id == 1 ? 'Admin' : 'User' }}</small>
                         </p>
                     </li>
                     <li class="user-footer">
-                        <a href="#" class="btn btn-default btn-flat">Profile</a>
-                        @if(Route::has('logout'))
-                        <a href="#" class="btn btn-default btn-flat float-end"
+                        <a href="{{ route('admin.users.edit', Auth::user()->id) }}" class="btn btn-default btn-flat">Profile</a>
+                        <a href="{{ route('admin.logout') }}" class="btn btn-default btn-flat float-end"
                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                             Sign out
                         </a>
-                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>
-                        @else
-                        <a href="#" class="btn btn-default btn-flat float-end">Sign out</a>
-                        @endif
                     </li>
                 </ul>
             </li>

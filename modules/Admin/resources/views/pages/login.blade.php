@@ -12,6 +12,12 @@
         <div class="card-body login-card-body">
             <p class="login-box-msg">Sign in to start your session</p>
 
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             @if ($errors->any())
                 <div class="alert alert-danger">
                     <ul class="mb-0">
@@ -95,7 +101,7 @@
             <!-- /.social-auth-links -->
 
             <p class="mb-1">
-                <a href="#">I forgot my password</a>
+                <a href="{{ route('admin.password.request') }}">I forgot my password</a>
             </p>
             <p class="mb-0">
                 <a href="#" class="text-center">

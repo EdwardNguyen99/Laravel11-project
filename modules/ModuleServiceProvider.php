@@ -5,6 +5,7 @@ namespace Modules;
 use FastRoute\Route;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\ServiceProvider;
+use Modules\User\src\Repositories\UserRepository;
 
 class ModuleServiceProvider extends ServiceProvider
 {
@@ -20,6 +21,21 @@ class ModuleServiceProvider extends ServiceProvider
         }
     }
 
+    public function register()
+    {
+        // Configs
+        $modules = $this->getModules();
+        foreach ($modules as $module) {
+            $this->registerConfig($module);
+        }
+
+        $this->registerMiddleware();
+        $this->commands($this->commands);
+        $this->app->singleton(
+            UserRepository::class,
+        );
+    }
+
     private function getModules()
     {
         $directories = array_map('basename', File::directories(__DIR__));
@@ -30,9 +46,16 @@ class ModuleServiceProvider extends ServiceProvider
     private function registerModule($module)
     {
         $modulePath = __DIR__ . "/{$module}";
-        /** Init Routes **/
+        /** Init Web Routes **/
         if (File::exists($modulePath . '/routes/routes.php')) {
             $this->loadRoutesFrom($modulePath . '/routes/routes.php');
+        }
+
+        /** Init API Routes **/
+        if (File::exists($modulePath . '/routes/api.php')) {
+            $this->app['router']->prefix('api')
+                ->middleware('api')
+                ->group($modulePath . '/routes/api.php');
         }
 
         /** Init Migrations **/
